@@ -1,4 +1,7 @@
 (executable
  (public_name advent_of_code_2021_ocaml)
  (name main)
- (libraries advent_of_code_2021_ocaml))
+ (libraries advent_of_code_2021_ocaml
+            base
+            stdio)
+ (preprocess (pps ppx_deriving.show ppx_deriving.ord ppx_jane)))
