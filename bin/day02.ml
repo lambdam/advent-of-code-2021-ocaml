@@ -1,8 +1,6 @@
 (*
 #require "base";;
 #require "stdio";;
-#require "ppx_deriving.show";;
-#require "re";;
 *)
 
 open Base
@@ -23,11 +21,12 @@ let data =
         | ["up"; x] -> Up (Int.of_string x)
         | ["down"; x] -> Down (Int.of_string x)
         | ["forward";  x] -> Forward (Int.of_string x)
-        | line -> Invalid_input (String.concat ~sep:" " line) |> raise
-      )
+        | line -> Invalid_input (String.concat ~sep:" " line) |> raise)
   end
 
-type position = {
+(* Part 1 *)
+
+type position_v1 = {
   position: int;
   depth: int
 }
@@ -43,3 +42,26 @@ let result1 =
       | Forward x -> {acc with position = position + x}
     end
   |> (fun {position; depth} -> position * depth)
+
+(* Part 2 *)
+
+type position_v2 = {
+  position: int;
+  depth: int;
+  aim: int
+}
+
+let result2 =
+  List.fold data
+    ~init: { position = 0; depth = 0; aim = 0 }
+    ~f:begin fun ({position; depth; aim} as acc) command ->
+      match command with
+      | Up x -> let new_aim = aim - x in
+        {acc with aim = if new_aim < 0 then 0 else new_aim}
+      | Down x -> {acc with aim = aim + x}
+      | Forward x ->
+        {acc with
+         position = position + x;
+         depth = depth + (aim * x)}
+    end
+  |> (fun {position; depth; _} -> position * depth)
