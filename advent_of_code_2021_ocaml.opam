@@ -10,11 +10,13 @@ license: "Unlicense"
 depends: [
   "dune" {>= "2.9.1"}
   "base" {>= "0.14.2"}
+  "ppx_jane" {>= "0.14.0"}
   "stdio" {>= "0.14.0"}
   "re" {>= "1.10.3"}
   "containers" {>= "3.6.1"}
   "containers-data" {>= "3.6.1"}
   "owl" {>= "1.0.1"}
+  "ppx_deriving" {>= "5.2.1"}
 ]
 build: ["dune" "build" "-p" name "-j" jobs]
 # dev-repo: ""
