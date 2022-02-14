@@ -7,5 +7,6 @@
    stdio
    containers
    containers-data
-   owl)
+   owl
+   re)
  (preprocess (pps ppx_deriving.show ppx_deriving.ord ppx_jane)))
